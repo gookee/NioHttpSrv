@@ -17,7 +17,7 @@ java Nio Http Server
 
 #示例
 
-##拦截器示例
+##拦截器示例 - 全局权限控制、注入
 
   public class AccessControl {
     @AccessAttr(urlContain = "/")
@@ -30,19 +30,23 @@ java Nio Http Server
       return "";
     }
   }
-  
+
+##拦截器示例 - 内容过滤
+
   @AccessAttr(urlContain = "/")
   public String defaultControl(NioRequest request, String html) {
     return html.replaceAll("flynn", "author");
   }
 
-##controller示例（home控制器index页面 index & login 请求）
+##controller示例 - home控制器index页面 index 请求
 
   public class Index extends Controller {
     @HttpMethod.HttpGet
     public String index() {
         return this.getView();
     }
+
+##controller示例 - home控制器index页面 login 请求
 
     @HttpMethod.HttpPost
     public String login() {
