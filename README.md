@@ -1,7 +1,7 @@
 # NioHttpSrv
 java Nio Http Server
 
-#注册路由
+# 注册路由
 
     <!--Route路由设置-->
     <ROUTE>
@@ -10,14 +10,14 @@ java Nio Http Server
         /{controller},home/index,index
     </ROUTE>
 
-#拦截器实现全局权限控制、注入、内容过滤等
+# 拦截器实现全局权限控制、注入、内容过滤等
 
     com.interceptor.AccessControl
     com.interceptor.ContentControl
 
-#示例
+# 示例
 
-##拦截器示例 - 全局权限控制、注入
+## 拦截器示例 - 全局权限控制、注入
 
     public class AccessControl {
         @AccessAttr(urlContain = "/")
@@ -31,7 +31,7 @@ java Nio Http Server
         }
     }
 
-##拦截器示例 - 内容过滤
+## 拦截器示例 - 内容过滤
 
     public class ContentControl {
         @AccessAttr(urlContain = "/")
@@ -40,7 +40,7 @@ java Nio Http Server
         }
     }
 
-##controller示例 - home控制器index页面 index 请求
+## controller示例 - home控制器index页面 index 请求
 
     public class Index extends Controller {
         @HttpMethod.HttpGet
@@ -49,7 +49,7 @@ java Nio Http Server
         }
     }
 
-##controller示例 - home控制器index页面 login 请求
+## controller示例 - home控制器index页面 login 请求
 
     public class Index extends Controller {
         @HttpMethod.HttpPost
@@ -60,10 +60,10 @@ java Nio Http Server
         }
     }
 
-###Post请求
+### Post请求
 
     @HttpMethod.HttpPost
 
-###Get请求
+### Get请求
 
     @HttpMethod.HttpGet //或不加注解则默认为Get请求
