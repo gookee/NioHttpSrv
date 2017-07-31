@@ -2,7 +2,8 @@
 java Nio Http Server
 
 #注册路由
-	<!--Route路由设置-->
+
+  <!--Route路由设置-->
   <ROUTE>
     /,home/index,index
     /{controller}/{action},home/index,index
@@ -10,14 +11,15 @@ java Nio Http Server
   </ROUTE>
 
 #拦截器实现全局权限控制、注入、内容过滤等
-	com.interceptor.AccessControl
+
+  com.interceptor.AccessControl
   com.interceptor.ContentControl
 
 #示例
 
 ##拦截器示例
 
-	public class AccessControl {
+  public class AccessControl {
     @AccessAttr(urlContain = "/")
     public String defaultControl(NioRequest request) {
       String url = request.getUrl().toLowerCase();
@@ -52,8 +54,8 @@ java Nio Http Server
 
 ###Post请求
 
-	@HttpMethod.HttpPost
+  @HttpMethod.HttpPost
 
 ###Get请求
 
-	@HttpMethod.HttpGet //或不加注解则默认为Get请求
+  @HttpMethod.HttpGet //或不加注解则默认为Get请求
