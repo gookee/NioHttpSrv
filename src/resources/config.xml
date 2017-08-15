@@ -16,6 +16,8 @@
 
     <!--http服务器监听端口，不设置默认大小为8000-->
     <SERVER_PORT>8000</SERVER_PORT>
+    <!--http服务器SessionId，不设置默认大小为JSESSIONID-->
+    <SESSION_ID>JSESSIONID</SESSION_ID>
     <!--http服务器处理请求线程池最小数量，不设置默认大小为100-->
     <SERVER_COREPOOLSIZE>100</SERVER_COREPOOLSIZE>
     <!--http服务器处理请求线程池最大大小，不设置默认大小为1000-->

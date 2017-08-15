@@ -1,9 +1,11 @@
 package com.core.server;
 
 
+import com.core.helper.Utility;
+
 public class Cookie {
 
-    public static String JSESSIONID = "JSESSIONID";
+    public static String JSESSIONID = Utility.getConfigValue("SESSION_ID", "JSESSIONID");
     private String name;
     private String value;
     private String domain;
