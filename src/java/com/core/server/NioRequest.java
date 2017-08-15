@@ -36,12 +36,15 @@ public class NioRequest {
     private String controllerName = "";
     private String actionName = "";
     private String routeValue = "";
+    private NioResponse response = null;
+    private boolean disableCache = false;
 
     public NioRequest(SelectionKey key) {
         this.key = key;
         Map<String, Object> obj = (Map<String, Object>) key.attachment();
         ByteArrayOutputStream baos = (ByteArrayOutputStream) obj.get("baos");
         this.bytes = baos.toByteArray();
+        this.response = new NioResponse(key, this);
     }
 
     public String isReceiveOver() {
@@ -100,7 +103,6 @@ public class NioRequest {
     }
 
     public void doSrv() {
-        NioResponse response = new NioResponse(key, this);
         Utility.threadLocalRequest.set(this);
         Utility.threadLocalResponse.set(response);
         this.host = getValueByPattern("Host: (.+)", headerStr);
@@ -310,7 +312,7 @@ public class NioRequest {
         String headerEtag = Utility.trim(getValueByPattern("If-None-Match: (.+)", this.headerStr), '\"');
         String headerExpires = getValueByPattern("If-Modified-Since: (.+)", this.headerStr);
         String etag = StaticFile.getETag(this.path);
-        if (etag.equals(headerEtag) && !isExpires(headerExpires)) {
+        if (!this.disableCache && this.attribute.size() == 0 && etag.equals(headerEtag) && !isExpires(headerExpires)) {
             response.setStatusCode(304);
             response.end();
             return;
@@ -367,6 +369,18 @@ public class NioRequest {
         if (session == null)
             execCookie(true);
         return session;
+    }
+
+    public boolean getDisableCache(){
+        return this.disableCache;
+    }
+
+    public void setDisableCache(boolean disableCache){
+        this.disableCache = disableCache;
+    }
+
+    public NioResponse getResponse(){
+        return this.response;
     }
 
     public boolean checkGizpCompress() {
