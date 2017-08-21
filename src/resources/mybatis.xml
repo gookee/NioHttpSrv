@@ -8,6 +8,8 @@
         <!--指定 MyBatis 如何自动映射列到字段/ 属性。PARTIAL 只会自动映射简单, 没有嵌套的结果。FULL 会自动映射任意复杂的结果(嵌套的或其他情况) 。-->
         <!-- 该参数默认为PARTIAL -->
         <setting name="autoMappingBehavior" value="FULL" />
+        <!-- 是否映射NULL值属性 -->
+        <setting name="callSettersOnNulls" value="true"/>
     </settings>
 
     <!-- Register Alias -->
@@ -50,7 +52,7 @@
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
                 <property name="url"
-                          value="jdbc:mysql://192.168.1.254:3306/bd651eb0?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC"/>
+                          value="jdbc:mysql://192.168.1.254:3306/bd651eb0?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC&amp;allowMultiQueries=true"/>
                 <property name="username" value="root"/>
                 <property name="password" value="123456"/>
                 <property name="poolPingEnabled" value="true"/>
