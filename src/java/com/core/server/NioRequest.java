@@ -371,15 +371,15 @@ public class NioRequest {
         return session;
     }
 
-    public boolean getDisableCache(){
+    public boolean getDisableCache() {
         return this.disableCache;
     }
 
-    public void setDisableCache(boolean disableCache){
+    public void setDisableCache(boolean disableCache) {
         this.disableCache = disableCache;
     }
 
-    public NioResponse getResponse(){
+    public NioResponse getResponse() {
         return this.response;
     }
 
@@ -492,13 +492,13 @@ public class NioRequest {
             String footStr = "";
             if (content.indexOf(m.group()) < content.length() - m.group().length())
                 footStr = content.substring(content.indexOf(m.group()) + m.group().length());
-            int len = bytes.length - headStr.getBytes().length - footStr.getBytes().length - m.group(1).getBytes().length - m.group(6).getBytes().length - "\r\n".length();
-            byte[] bs = new byte[len];
-            System.arraycopy(bytes, headStr.getBytes().length + m.group(1).getBytes().length, bs, 0, len);
             File f = new File(Utility.getRootPath() + "/" + Utility.trim(path, '/', '\\', ' ') + "/" + filename);
             if (!f.getParentFile().isDirectory())
                 f.getParentFile().mkdirs();
             try {
+                int len = bytes.length - headStr.getBytes(NioCore.charsetName).length - footStr.getBytes(NioCore.charsetName).length - m.group(1).getBytes(NioCore.charsetName).length - m.group(6).getBytes(NioCore.charsetName).length - "\r\n".length();
+                byte[] bs = new byte[len];
+                System.arraycopy(bytes, headStr.getBytes(NioCore.charsetName).length + m.group(1).getBytes(NioCore.charsetName).length, bs, 0, len);
                 FileOutputStream fos = new FileOutputStream(f);
                 FileChannel ch = fos.getChannel();
                 ByteBuffer byteBuffer = ByteBuffer.wrap(bs);
