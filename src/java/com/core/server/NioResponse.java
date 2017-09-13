@@ -175,7 +175,11 @@ public class NioResponse {
                 addHeader("Set-Cookie", cookie.toString());
             addHeader("Transfer-Encoding", "chunked");
             addHeader("Connection", "keep-alive");
-            if (!etag.equals("")) {
+            if (request.getDisableCache()) {
+                addHeader("Pragma", "no-cache");
+                addHeader("Cache-Control", "no-cache");
+                addHeader("Expires", "0");
+            } else if (!etag.equals("")) {
                 addHeader("Cache-Control", "max-age=36593149");
                 addHeader("Last-Modified", getGMTString(System.currentTimeMillis()));
                 Calendar c = Calendar.getInstance();
