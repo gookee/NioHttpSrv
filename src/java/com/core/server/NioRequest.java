@@ -420,6 +420,19 @@ public class NioRequest {
         return this.attribute.get(key);
     }
 
+    public String getRequestQueryBody(){
+        String[] tmp = url.split("\\?");
+        if (tmp.length > 1) {
+            return url.substring(tmp[0].length() + 1, url.length());
+        }
+
+        return "";
+    }
+
+    public String getRequestFormBody(){
+        return this.postParams;
+    }
+
     public int getRequestInt(String key) {
         return Utility.toInt(getParameter(key));
     }
