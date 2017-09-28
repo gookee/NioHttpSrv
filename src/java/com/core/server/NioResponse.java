@@ -24,6 +24,7 @@ public class NioResponse {
     private int statusCode = 200;
     private String etag = "";
     private Map<String, String> headerMap = new HashMap();
+    private boolean isEnd = false;
 
     public int getStatusCode() {
         return statusCode;
@@ -59,10 +60,16 @@ public class NioResponse {
     }
 
     public void write(byte[] bytes) {
+        if (isEnd)
+            return;
+
         byteArrayOutputStream.write(bytes, 0, bytes.length);
     }
 
     public void write(String html) {
+        if (isEnd)
+            return;
+
         try {
             write(html.getBytes(NioCore.charsetName));
         } catch (Exception e) {
@@ -74,17 +81,26 @@ public class NioResponse {
     }
 
     public void flush() {
+        if (isEnd)
+            return;
+
         isCanGzip = false;
         send();
     }
 
     public void redirect(String url) {
+        if (isEnd)
+            return;
+
         setStatusCode(302);
         addHeader("Location", url);
         end();
     }
 
     public void end() {
+        if (isEnd)
+            return;
+
         try {
             send();
 
@@ -104,6 +120,8 @@ public class NioResponse {
             channel.close();
         } catch (IOException e) {
         }
+
+        isEnd = true;
     }
 
     void send() {

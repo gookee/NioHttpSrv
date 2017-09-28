@@ -135,7 +135,6 @@ public class NioRequest {
             response.write("{\"msg\":\"not support httpMethod\"}");
             response.end();
         }
-
     }
 
     boolean execAccessControl(NioResponse response) {
