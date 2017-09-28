@@ -14,7 +14,7 @@
 
     <!-- Register Alias -->
     <typeAliases>
-        <package name="com.model"/>
+        <package name="com.model.mapper"/>
     </typeAliases>
 
     <plugins>

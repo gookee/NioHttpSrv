@@ -78,6 +78,12 @@ public class NioResponse {
         send();
     }
 
+    public void redirect(String url) {
+        setStatusCode(302);
+        addHeader("Location", url);
+        end();
+    }
+
     public void end() {
         try {
             send();
@@ -144,6 +150,8 @@ public class NioResponse {
         switch (statusCode) {
             case 200:
                 return "OK";
+            case 302:
+                return "Moved Temporarily";
             case 304:
                 return "Not Modified";
             case 404:
